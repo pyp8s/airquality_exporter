@@ -219,7 +219,6 @@ class Adapter(threading.Thread):
             logger.warning(f"Ignored configuration parameters: {kwargs}")
 
     def _initialise_metrics(self):
-        MetricsHandler.init("airquality_iqair_ic", "gauge", "IQAir weather icon code")
         MetricsHandler.init("airquality_iqair_target_results", "counter", "IQAir Adapter plugin, target fetching results")
         MetricsHandler.init("airquality_iqair_usage_requests_total", "counter", "IQAir Adapter plugin, total API requests")
         MetricsHandler.init("airquality_iqair_backoff_time_total", "counter", "IQAir Adapter plugin, total backoff time")
@@ -247,7 +246,6 @@ class Adapter(threading.Thread):
         MetricsHandler.set("airquality_humidity",       weather["hu"],      **labels)
         MetricsHandler.set("airquality_wind_speed",     weather["ws"],      **labels)
         MetricsHandler.set("airquality_wind_direction", weather["wd"],      **labels)
-        MetricsHandler.set("airquality_iqair_ic",       weather["ic"],      **labels)
 
         weather_update_time = self._extract_time_from_ts(weather['ts'])
         MetricsHandler.set("airquality_last_update", weather_update_time, subject="weather", **labels)
