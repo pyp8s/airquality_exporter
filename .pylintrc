@@ -1,0 +1,4 @@
+[DESIGN]
+max-attributes = 32
+max-positional-arguments = 32
+fail-under = 9.8
