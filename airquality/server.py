@@ -32,15 +32,18 @@
 
 """
 
+import logging
+
 from pyp8s import MetricsHandler
 
-from providers import iqair
-
+from providers import providers
 from configuration import (
     METRICS_LISTEN_ADDRESS,
     METRICS_LISTEN_PORT,
-    PROVIDERS,
+    SOURCES,
 )
+
+logger = logging.getLogger("server")
 
 
 if __name__ == "__main__":
@@ -55,5 +58,8 @@ if __name__ == "__main__":
 
     MetricsHandler.serve(listen_address=METRICS_LISTEN_ADDRESS, listen_port=METRICS_LISTEN_PORT)
 
-    provider = iqair.Adapter(adapter_config=PROVIDERS['iqair'])
-    provider.run()
+    for source_name, source_config in SOURCES.items():
+        logger.info(f"Initialising source '{source_name}'")
+        provider_module = providers.get(source_config['provider'])
+        provider_adapter = provider_module.Adapter(adapter_config=source_config)
+        provider_adapter.start()

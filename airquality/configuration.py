@@ -14,6 +14,7 @@ import json
 import logging
 from logging.handlers import WatchedFileHandler
 
+
 CONFIG_FILENAME = os.environ.get("CONFIG_FILENAME", "config.json")
 
 try:
@@ -35,7 +36,7 @@ METRICS = config_dict.get('metrics', {})
 METRICS_LISTEN_ADDRESS = METRICS.get('listen_address', "0.0.0.0")
 METRICS_LISTEN_PORT = METRICS.get('listen_port', 19001)
 
-PROVIDERS = config_dict.get('providers', [])
+SOURCES = config_dict.get('sources', [])
 
 logging.root.handlers = []
 logging.basicConfig(
@@ -46,3 +47,5 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
+
+logging.getLogger('pyp8s').setLevel(logging.WARNING)
