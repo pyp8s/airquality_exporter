@@ -22,8 +22,7 @@ from .exceptions import (
     APIResponseFailedException,
 )
 
-# logger = logging.getLogger("IQAirAdapter")
-# logger.setLevel(logging.getLogger('root').level)
+
 logger = logging.getLogger(__name__)
 
 
@@ -76,7 +75,7 @@ class Adapter(threading.Thread):
         self.target_polling_interval = None
         self.target_polling_backoff_threshold = 120
 
-        self.daemon = True
+        self.daemon = False
         self.alive = True
 
         self._parse_configuration(**adapter_config)
